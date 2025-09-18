@@ -5,7 +5,7 @@
 namespace Lights {
 	
 	TrafficLights::TrafficLights() : currentLight(0), lights({ "Red", "Green", "Yellow" }) {}
-
+	//cycles through the lights the same amount of times as the user says
 	void TrafficLights::cycleChanges(int changes) {
         for (int i = 0; i < changes; i++) {
             std::cout << lights[currentLight] << std::endl;
@@ -16,4 +16,5 @@ namespace Lights {
             }
         }
 	}
+
 }
