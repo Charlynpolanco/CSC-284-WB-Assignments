@@ -4,14 +4,13 @@
 
 using namespace std;
 
-//Cycles through the content of the traficLights vector by an amount given by the user
-
 int main() {
     int numberOfChanges;
     cout << "how many times did the light change?:";
     cin >> numberOfChanges;
-    //calls trafficLightCycler and passes the numberofChanges for the lights to cycle through.
+    //calls cycleChanges in the class to take the value of numberOfChanges
     
     Lights::TrafficLights light;
     light.cycleChanges(numberOfChanges);
+
 }
