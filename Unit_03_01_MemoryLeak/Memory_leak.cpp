@@ -17,11 +17,6 @@ int main()
     print("Are you done yet? ");
     string confirmation;
     cin >> confirmation;
-    
-  
-
-    
-    
 
     return 0;
 }
