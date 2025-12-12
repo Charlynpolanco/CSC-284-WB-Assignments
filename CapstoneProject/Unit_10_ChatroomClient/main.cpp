@@ -1,4 +1,5 @@
 #include "ChatClientUI.h"
+#include <curses.h>
 
 int main() {
     ChatClientUI ui;
