@@ -1,6 +1,6 @@
 #include "WindowBase.h"
 #include <stdexcept>
-#include <curses.h>
+
 //constructor
 WindowBase::WindowBase(int y, int x, int h, int w)
     : startY(y), startX(x), height(h), width(w)
