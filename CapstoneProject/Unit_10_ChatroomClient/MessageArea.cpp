@@ -1,6 +1,6 @@
 #include "MessageArea.h"
 #include <algorithm>
-#include <curses.h>
+
 //constructor
 MessageArea::MessageArea(int y, int x, int h, int w, int color_pair)
     : WindowBase(y, x, h, w), color(color_pair)
