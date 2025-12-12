@@ -18,4 +18,5 @@ private:
     std::vector<std::string> history;
 };
 
-#endif // MESSAGEAREA_H
+
+#endif
