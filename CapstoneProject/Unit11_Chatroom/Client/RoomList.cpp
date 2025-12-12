@@ -1,17 +1,17 @@
 #include "RoomList.h"
-
+//constructor
 RoomList::RoomList(int y, int x, int h, int w, int color_pair)
     : WindowBase(y, x, h, w), color(color_pair), selected(0), scroll(0) {
 }
-
+//destructor
 RoomList::~RoomList() {}
-
+//starting position for the room object
 void RoomList::setRooms(const std::vector<std::string>& r) {
     rooms = r;
     selected = 0;
     scroll = 0;
 }
-
+//draws the designated area for the room list and adds the attributes using the curses library
 void RoomList::draw(bool) {
     werase(win);
     wattron(win, COLOR_PAIR(color));
@@ -42,18 +42,21 @@ void RoomList::draw(bool) {
 
     wrefresh(win);
 }
-
+//controls movement of the room list
 void RoomList::moveUp() {
     if (selected > 0) selected--;
 }
-
+//controls movement of the room list
 void RoomList::moveDown() {
     if (selected < (int)rooms.size() - 1) selected++;
 }
-
-int RoomList::getSelected() const { return selected; }
-
+//returns the object selected
+int RoomList::getSelected() const { 
+    return selected; 
+}
+//returns the name of the room when pressing enter
 std::string RoomList::getSelectedName() const {
     if (rooms.empty()) return "";
     return rooms[selected];
+
 }
