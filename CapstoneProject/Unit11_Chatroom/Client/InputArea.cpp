@@ -1,11 +1,12 @@
 #include "InputArea.h"
-
+//constructor
 InputArea::InputArea(int y, int x, int h, int w, int color_pair)
     : WindowBase(y, x, h, w), color(color_pair), buffer(), cursorPos(0), scrollOffset(0) {
 }
-
+//destructor
 InputArea::~InputArea() {}
 
+//handles letter inputs and direction inputs and correctly positions the cursor in the right spot.
 bool InputArea::handleKey(int ch, std::string& outMsg) {
     if (ch == KEY_LEFT) {
         if (cursorPos > 0) cursorPos--;
@@ -36,6 +37,7 @@ bool InputArea::handleKey(int ch, std::string& outMsg) {
     return false;
 }
 
+//creates the box where the user types messages and clears anything when it's called
 void InputArea::draw(bool focused) {
     werase(win);
     wattron(win, COLOR_PAIR(color));
@@ -46,6 +48,7 @@ void InputArea::draw(bool focused) {
     getmaxyx(win, maxY, maxX);
     int visibleWidth = maxX - 4;
 
+    //Adjust scroll to keep cursor visible
     if (cursorPos < scrollOffset) scrollOffset = cursorPos;
     else if (cursorPos >= scrollOffset + visibleWidth) scrollOffset = cursorPos - visibleWidth + 1;
 
@@ -54,6 +57,7 @@ void InputArea::draw(bool focused) {
 
     mvwprintw(win, 1, 2, "%s", visible.c_str());
 
+    //Set cursor if focused
     if (focused) {
         int cx = 2 + (int)cursorPos - (int)scrollOffset;
         if (cx < 1) cx = 1;
@@ -67,4 +71,5 @@ void InputArea::draw(bool focused) {
     }
 
     wrefresh(win);
+
 }
