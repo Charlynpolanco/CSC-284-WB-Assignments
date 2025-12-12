@@ -25,4 +25,5 @@ private:
     int scroll;
 };
 
-#endif // ROOMLIST_H
+
+#endif
