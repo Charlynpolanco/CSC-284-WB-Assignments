@@ -9,7 +9,7 @@ public:
     InputArea(int y, int x, int h, int w, int color_pair);
     ~InputArea() override;
 
-    // handle a key; returns true if Enter pressed and outMsg filled
+    //handle a key; returns true if Enter pressed and outMsg filled
     bool handleKey(int ch, std::string& outMsg);
     void draw(bool focused) override;
 
@@ -20,4 +20,5 @@ private:
     size_t scrollOffset;
 };
 
-#endif // INPUTAREA_H
+
+#endif
