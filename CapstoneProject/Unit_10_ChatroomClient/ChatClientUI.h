@@ -4,6 +4,7 @@
 #include "MessageArea.h"
 #include "RoomList.h"
 #include "InputArea.h"
+#include <curses.h>
 
 class ChatClientUI {
 public:
