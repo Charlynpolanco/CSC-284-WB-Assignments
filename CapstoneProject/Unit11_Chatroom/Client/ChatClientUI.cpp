@@ -3,7 +3,7 @@
 #include <iostream>
 #include <thread>
 #include <string>
-
+//constructor
 ChatClientUI::ChatClientUI(int serverSock)
     : sock(serverSock), messageArea(nullptr), roomList(nullptr), inputArea(nullptr),
     h(0), w(0), topBarHeight(2), roomPanelWidth(22), messagePanelWidth(0) {
@@ -34,25 +34,25 @@ ChatClientUI::ChatClientUI(int serverSock)
     roomList = new RoomList(topBarHeight, messagePanelWidth, h - topBarHeight - 1, roomPanelWidth, 3);
     inputArea = new InputArea(h - 3, 0, 3, messagePanelWidth, 3);
 
-    // sample data
+    //Welcome messages and rooms
     roomList->setRooms({ "General", "Sports", "Programming", "Music", "Random", "ExtraRoom" });
     messageArea->addMessage("Welcome to the chat!");
     messageArea->addMessage("Press TAB to toggle focus between input and room list.");
     messageArea->addMessage("Press ESC to exit the program.");
 }
-
+//destructor
 ChatClientUI::~ChatClientUI() {
     delete messageArea;
     delete roomList;
     delete inputArea;
     endwin();
 }
-
+//draws the title of the chat room and gives it attributes
 void ChatClientUI::drawHeader() {
     attron(COLOR_PAIR(3));
     mvhline(1, 0, 0, w);
     attroff(COLOR_PAIR(3));
-    mvprintw(0, 2, " Advanced C++ Chat Client ");
+    mvprintw(0, 2, " Charly's Chat Room.");
     refresh();
 }
 
@@ -62,7 +62,7 @@ void ChatClientUI::run() {
     roomList->draw();
     inputArea->draw(true);
 
-    // Background thread to receive messages from server
+    //Background thread to receive messages from server
     std::thread receiver([this]() {
         char buffer[4096];
         while (true) {
@@ -73,7 +73,7 @@ void ChatClientUI::run() {
         }
         });
     receiver.detach();
-
+    //sets the key value for exiting and focus changing between the chat bar and the room selection.
     enum Focus { INPUT, ROOM };
     Focus focus = INPUT;
 
@@ -82,13 +82,13 @@ void ChatClientUI::run() {
         int ch;
         if (focus == INPUT) ch = wgetch(inputArea->winHandle());
         else ch = wgetch(roomList->winHandle());
-
-        if (ch == 27) { // ESC
+        //ESC
+        if (ch == 27) { 
             running = false;
             break;
         }
 
-        if (ch == '\t') { // TAB toggles focus
+        if (ch == '\t') { //TAB toggles focus
             focus = (focus == INPUT) ? ROOM : INPUT;
             roomList->draw();
             inputArea->draw(focus == INPUT);
@@ -101,10 +101,10 @@ void ChatClientUI::run() {
             inputArea->draw(true);
 
             if (sent && !out.empty()) {
-                // send to server
+                //send to server
                 int bytesSent = sendMessage(sock, out);
                 if (bytesSent > 0) {
-                    // show immediately in your own UI
+                    //show immediately in your own UI
                     messageArea->addMessage("You: " + out);
                     messageArea->draw();
                 }
@@ -114,7 +114,7 @@ void ChatClientUI::run() {
                 }
             }
         }
-        else { // ROOM focus
+        else { //ROOM focus
             if (ch == KEY_UP) {
                 roomList->moveUp();
                 roomList->draw();
@@ -131,4 +131,5 @@ void ChatClientUI::run() {
             inputArea->draw(false);
         }
     }
+
 }
