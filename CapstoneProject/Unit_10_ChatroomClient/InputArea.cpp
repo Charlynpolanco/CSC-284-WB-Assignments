@@ -1,5 +1,4 @@
 #include "InputArea.h"
-#include <curses.h>
 
 //constructor
 InputArea::InputArea(int y, int x, int h, int w, int color_pair)
