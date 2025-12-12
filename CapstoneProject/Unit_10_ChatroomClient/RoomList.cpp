@@ -1,5 +1,5 @@
 #include "RoomList.h"
-#include <curses.h>
+
 //constructor
 RoomList::RoomList(int y, int x, int h, int w, int color_pair)
     : WindowBase(y, x, h, w), color(color_pair), selected(0), scroll(0)
