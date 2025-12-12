@@ -28,7 +28,7 @@ void handleClient(int clientSocket) {
         int bytesReceived = recv(clientSocket, buffer, sizeof(buffer), 0);
         if (bytesReceived <= 0) break;
 
-        // Broadcast to all other clients
+        //Broadcast to all other clients
         std::lock_guard<std::mutex> lock(clientsMutex);
         for (int c : clients) {
             if (c != clientSocket) {
@@ -37,12 +37,13 @@ void handleClient(int clientSocket) {
         }
     }
 
-    // Remove client when disconnected
+    //Remove client when disconnected
     closesocket(clientSocket);
     {
         std::lock_guard<std::mutex> lock(clientsMutex);
         clients.erase(std::remove(clients.begin(), clients.end(), clientSocket), clients.end());
     }
+    //prints out the number of active clients left
     std::cout << "Client disconnected. Active clients: " << clients.size() << "\n";
 }
 
@@ -102,7 +103,7 @@ int main(int argc, char* argv[]) {
 
         std::thread(handleClient, clientSocket).detach();
     }
-
+    
     closesocket(listening);
 
 #ifdef _WIN32
